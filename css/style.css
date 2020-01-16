@@ -1,0 +1,139 @@
+/* @import url("https://fonts.googleapis.com/css?family=Roboto:700&display=swap"); */
+@import url("https://fonts.googleapis.com/css?family=Mouse+Memoirs&display=swap");
+
+/* html {
+  user-select: none;
+} */
+body {
+  background-image: url(../images/bg-2.jpg);
+  background-position: center;
+  background-size: cover;
+  overflow: hidden;
+}
+* {
+  cursor: url("../images/fork.png"), pointer;
+  font-family: "Mouse Memoirs", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+.game-screen,
+.start-screen {
+  height: 100%;
+  height: 100vh;
+}
+.game-screen {
+  margin-top: -657px;
+}
+
+.fighter {
+  position: fixed;
+  bottom: 30px;
+  left: 45%;
+  transition: transform 0.4s;
+  display: none;
+}
+#fuelL,
+#fuelR {
+  position: absolute;
+  width: 9px;
+  bottom: -10px;
+  /* animation: fuelMove 0.7s infinite linear; */
+  z-index: -1;
+}
+@keyframes fuelMove {
+  0%,
+  100% {
+    bottom: -10px;
+  }
+  50% {
+    bottom: -4px;
+  }
+}
+#fuelL {
+  left: 31px;
+}
+#fuelR {
+  left: 42px;
+}
+#rocket {
+  width: 80px;
+}
+#fire {
+  position: fixed;
+  width: 12px;
+}
+
+#chickens,
+#bullets,
+#explosion,
+#gifts,
+#score,
+#eggs {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+}
+.egg {
+  width: 19px;
+  position: fixed;
+}
+.chicken,
+.explosion {
+  width: 100px;
+  position: fixed;
+}
+.grilled,
+.wing,
+.combo {
+  position: fixed;
+}
+.grilled {
+  width: 70px;
+}
+.wing {
+  width: 40px;
+}
+.combo {
+  width: 60px;
+}
+.hearts i {
+  color: #c30d0d;
+  font-size: 18px;
+  padding-right: 3px;
+}
+.score {
+  position: fixed;
+  top: 0px;
+  left: 0;
+  background: #2485a5;
+  color: #fff;
+  padding: 12px 15px;
+  width: 130px;
+  border-radius: 0px 0px 23px 0px;
+  display: flex;
+  justify-content: space-between;
+}
+.points {
+  /* font-family: "Roboto", sans-serif; */
+  font-weight: 700;
+  letter-spacing: 2.5px;
+}
+#result {
+  display: none;
+}
+.chield {
+  border: 4px solid #2196f3;
+  border-radius: 50%;
+  padding: 10px;
+  animation: chielded 1s infinite ease-out;
+}
+
+@keyframes chielded {
+  0%,
+  100% {
+    padding: 10px;
+  }
+  50% {
+    padding: 2px;
+  }
+}

@@ -4,15 +4,41 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="shortcut icon" href="images/c4.png" type="image/x-icon" />
     <title>Chicken Invaders</title>
   </head>
   <body>
-
-    <h1>Abdallah</h1>
-    <h2>ahmed</h2>
-    <h3><span class="pf pf-american-express"></span></h3>
-
+    <div class="game-screen">
+      <div id="explosions"></div>
+      <div id="bullets"></div>
+      <div id="gifts">
+        <img src="images/food-3.svg" alt="" class="grilled" />
+        <img src="images/food-2.svg" alt="" class="wing" />
+        <img src="images/food-4.svg" alt="" class="wing" />
+        <img src="images/food-1.svg" alt="" class="combo" />
+      </div>
+      <div id="eggs">
+        <img src="images/egg-w.svg" class="egg" alt="" />
+      </div>
+      <div id="chickens"></div>
+      <div class="fighter">
+        <img src="images/fuel-1.svg" alt="" class="fuel" id="fuelL" />
+        <img src="images/fuel-1.svg" alt="" class="fuel" id="fuelR" />
+        <img src="images/rocket-1.svg" alt="Rocket" id="rocket" />
+      </div>
+      <div id="result">
+        <div class="score">
+          <div class="hearts">
+            <i class="fa fa-heart"></i>
+            <i class="fa fa-heart"></i>
+            <i class="fa fa-heart"></i>
+          </div>
+          <div class="points">0</div>
+        </div>
+      </div>
+    </div>
 
     <script src="js/jquery.min.js"></script>
     <script src="js/controller.js"></script>
