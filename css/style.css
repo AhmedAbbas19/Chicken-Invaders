@@ -2,3 +2,7 @@ body {
   /* test */
   background-color: brown;
 }
+h2 {
+  text-align: center;
+  color: blue;
+}
