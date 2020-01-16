@@ -24,7 +24,77 @@ body {
 .game-screen {
   margin-top: -657px;
 }
+.start-screen {
+  text-align: center;
+}
+.start-screen .logo {
+  max-width: 35%;
+  margin-top: 45px;
+}
+.inputField {
+  margin-top: 32px;
+  display: none;
+}
+#press-key {
+  color: #fff;
+  font-size: 27px;
+  letter-spacing: 1px;
+  animation: pressKeyMove 2s infinite linear;
+  /* border: 1px solid #003c64;
+  text-shadow: 0px 0px 6px 4px #40a9c9; */
+}
+@keyframes pressKeyMove {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+.start-screen #uname,
+.start-screen #btn-uname {
+  border: 3px solid #003c64;
+  box-shadow: 0px 0px 6px 4px #003353;
+  color: #fff;
+  font-size: 24px;
+  border-radius: 40px;
+  outline: none;
+  letter-spacing: 0.5px;
+}
+.start-screen #uname {
+  background-color: #00002f;
+  padding: 12px 8px 12px 26px;
+  margin-right: 25px;
+}
+.start-screen #btn-uname {
+  background-color: #011f4c;
+  padding: 12px 20px;
+}
+.game-menu {
+  list-style: none;
+  width: 300px;
+  margin: 0 auto;
+  margin-top: 32px;
+  display: none;
+}
+.game-menu .menu-item {
+  background-color: #00002f;
+  border: 3px solid #003c64;
+  box-shadow: 0px 0px 6px 4px #003353;
+  color: #fff;
+  font-size: 24px;
+  border-radius: 40px;
+  padding: 12px 20px;
+  outline: none;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+  transition: all 0.5s;
+}
 
+.game-menu .menu-item:hover {
+  box-shadow: 0px 0px 6px 4px #40a9c9;
+}
 .fighter {
   position: fixed;
   bottom: 30px;
@@ -68,7 +138,8 @@ body {
 #explosion,
 #gifts,
 #score,
-#eggs {
+#eggs,
+#messages {
   position: fixed;
   height: 100%;
   width: 100%;
@@ -136,4 +207,48 @@ body {
   50% {
     padding: 2px;
   }
+}
+/*  */
+.male-type,
+.female-type {
+  position: relative;
+  width: 100px;
+  margin: 0 auto;
+  color: #fff;
+  font-size: 24px;
+}
+.male-type {
+  margin-top: 25px;
+}
+input[name="gender"] {
+  opacity: 0;
+  width: 88px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  z-index: 999;
+}
+input[name="gender"]:checked ~ .checkmark {
+  background-color: #00002f;
+  border-color: #5889b1;
+}
+.checkmark {
+  position: absolute;
+  top: 5px;
+  left: 7px;
+  height: 12px;
+  width: 12px;
+  background-color: #f7f7f7;
+  border-radius: 50%;
+  border: 2px solid #cccccc;
+}
+.message {
+  cursor: none;
+  position: fixed;
+  left: 43%;
+  top: 25%;
+  color: #fff;
+  font-size: 96px;
+  letter-spacing: 1px;
 }
