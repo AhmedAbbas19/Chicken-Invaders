@@ -2,3 +2,9 @@ body {
   /* test */
   background-color: brown;
 }
+
+h1 {
+  background-color: red;
+  font-size: 200px;
+  text-align: center;
+}
