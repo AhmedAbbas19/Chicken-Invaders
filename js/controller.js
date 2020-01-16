@@ -6,4 +6,3 @@ console.log(x);
 
 var x = "hamada";
 alert(x);
-
