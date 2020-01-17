@@ -168,3 +168,59 @@ function moveEggs() {
     }
   }
 }
+
+function rocketDeath() {
+  chielded = true;
+  lives -= 1;
+  explodeObject({
+    left: $(".fighter").offset().left,
+    top: $(".fighter").offset().top
+  });
+  $(".fighter").css({ display: "none" });
+  if (lives == 0) {
+    alert("Game Over");
+    saveResults();
+  } else {
+    document.querySelector(".hearts").innerHTML = "";
+    for (let i = 0; i < lives; i++) {
+      document.querySelector(".hearts").innerHTML +=
+        "<i class='fa fa-heart'></i>";
+    }
+    setTimeout(function() {
+      $(".fighter")
+        .css({ display: "block" })
+        .addClass("chield");
+      $(".fuel").css({ display: "none" });
+    }, 3000);
+    setTimeout(function() {
+      chielded = false;
+      $(".fighter").removeClass("chield");
+      $(".fuel").css({ display: "block" });
+    }, 6000);
+  }
+}
+
+function drawBullets() {
+  var bulletColor = playerGender == "male" ? 1 : 2;
+  document.getElementById("bullets").innerHTML = "";
+  for (var i = 0; i < bullets.length; i++) {
+    document.getElementById("bullets").innerHTML +=
+      "<img src='images/fire-" +
+      bulletColor +
+      ".svg' class='bullet' id='fire' style='left:" +
+      bullets[i].left +
+      "px; top:" +
+      bullets[i].top +
+      "px'/>";
+    checkCollision(bullets[i]);
+  }
+}
+
+function moveBullets() {
+  for (var i = 0; i < bullets.length; i++) {
+    bullets[i].top = bullets[i].top - 8;
+    if (bullets[i].top < 0) {
+      bullets.splice(i, 1);
+    }
+  }
+}
