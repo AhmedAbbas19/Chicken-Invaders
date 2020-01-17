@@ -299,3 +299,31 @@ function checkCollision(bullet) {
     }
   }
 }
+
+function checkHit(object, objectWidth, objectHeight, objectsArr, state) {
+  var objectLeft = object.left;
+  var objectBottom = object.top + objectHeight;
+  var objectTop = object.top;
+  var objectRight = objectLeft + objectWidth;
+
+  var rocketTop = $(".fighter").offset().top;
+  var rocketLeft = $(".fighter").offset().left;
+  var rocketBottom = rocketTop + $(".fighter").height();
+  var rocketRight = rocketLeft + $(".fighter").width();
+
+  if (objectBottom >= rocketTop && objectTop <= rocketBottom) {
+    if (
+      (objectLeft >= rocketLeft && objectLeft <= rocketRight) ||
+      (objectRight >= rocketLeft && objectRight <= rocketRight)
+    ) {
+      objectsArr.splice(objectsArr.indexOf(object), 1);
+      score += state.points;
+      $(".points").text(score);
+      state.audio.load();
+      state.audio.play();
+      if (state.points < 0) {
+        rocketDeath();
+      }
+    }
+  }
+}
