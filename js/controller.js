@@ -224,3 +224,78 @@ function moveBullets() {
     }
   }
 }
+
+function drawEnemies() {
+  var chickenColor = playerGender == "male" ? 4 : 6;
+  document.getElementById("chickens").innerHTML = "";
+  for (var i = 0; i < enemies.length; i++) {
+    document.getElementById("chickens").innerHTML +=
+      '<img src="images/c' +
+      chickenColor +
+      '.png" class="chicken" alt=""  style="left:' +
+      enemies[i].left +
+      "px; top:" +
+      enemies[i].top +
+      'px"/>';
+  }
+}
+
+var factor = 0;
+var flag = true;
+function moveEnemies() {
+  if (flag == true) {
+    factor++;
+    if (factor >= 100) {
+      flag = false;
+    }
+  } else {
+    factor--;
+    if (factor <= -90) {
+      flag = true;
+    }
+  }
+  for (var i = 0; i < enemies.length; i++) {
+    if (flag) {
+      enemies[i].left = enemies[i].left + 2;
+    } else {
+      enemies[i].left = enemies[i].left - 2;
+    }
+  }
+}
+
+function checkCollision(bullet) {
+  var bulletLeft = bullet.left;
+  var bulletTop = bullet.top;
+  var bulleRight = bulletLeft + $("#fire").width();
+  var enemyWidth = $(".chicken").width();
+  var enemyHeight = $(".chicken").height();
+
+  for (var i = 0; i < enemies.length; i++) {
+    if (
+      bulletTop <= enemies[i].top + enemyHeight &&
+      bulletTop >= enemies[i].top
+    ) {
+      if (
+        (bulletLeft >= enemies[i].left &&
+          bulletLeft <= enemies[i].left + enemyWidth) ||
+        (bulleRight >= enemies[i].left &&
+          bulleRight <= enemies[i].left + enemyWidth)
+      ) {
+        bullets.splice(bullets.indexOf(bullet), 1);
+        explodeObject({ left: enemies[i].left, top: enemies[i].top });
+        audioChickenDeath.load();
+        audioChickenDeath.play();
+        var spd = Math.floor(Math.random() * (10 - 4)) + 4;
+        gifts.push({
+          left: enemies[i].left + 40,
+          top: enemies[i].top + 20,
+          speed: spd
+        });
+        enemies.splice(i, 1);
+        score += points.kill;
+        $(".points").text(score);
+        drawEnemies();
+      }
+    }
+  }
+}
