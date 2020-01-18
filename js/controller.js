@@ -547,9 +547,16 @@ function levelTwo() {
 function finalizeGame() {
   finalPhase = false;
   level = -1;
-  showMessage("Brilliant", "You saved the world", 1500);
   $(".progress").fadeOut();
   $("#result").fadeOut();
+  // fireworks
+  $(".demo").fireworks({
+    sound: true,
+    opacity: 0.8,
+    width: "100%",
+    height: "100%"
+  });
+  showMessage("Brilliant", "You saved the world", 1500);
   setTimeout(() => {
     showMessage("Hall of fame", "// to be added", 3500);
   }, 1600);
