@@ -30,7 +30,7 @@ var bullets = [],
   chielded = false,
   gameState = false,
   lives = 3,
-  monsterLives = 30,
+  monsterLives = 2,
   monsterHit = 0,
   level = 1,
   playerName = "Empty",
@@ -39,30 +39,30 @@ var bullets = [],
   moveBg;
 
 var enemies = [
-  { left: 200, top: 45, type: "chicken" },
-  { left: 320, top: 45, type: "chicken" },
-  { left: 440, top: 45, type: "chicken" },
-  { left: 560, top: 45, type: "chicken" },
-  { left: 680, top: 45, type: "chicken" },
-  { left: 800, top: 45, type: "chicken" },
-  { left: 920, top: 45, type: "chicken" },
-  { left: 1040, top: 45, type: "chicken" },
-  { left: 200, top: 145, type: "chicken" },
-  { left: 320, top: 145, type: "chicken" },
-  { left: 440, top: 145, type: "chicken" },
-  { left: 560, top: 145, type: "chicken" },
-  { left: 680, top: 145, type: "chicken" },
-  { left: 800, top: 145, type: "chicken" },
-  { left: 920, top: 145, type: "chicken" },
-  { left: 1040, top: 145, type: "chicken" },
-  { left: 200, top: 245, type: "chicken" },
-  { left: 320, top: 245, type: "chicken" },
-  { left: 440, top: 245, type: "chicken" },
-  { left: 560, top: 245, type: "chicken" },
-  { left: 680, top: 245, type: "chicken" },
-  { left: 800, top: 245, type: "chicken" },
-  { left: 920, top: 245, type: "chicken" },
-  { left: 1040, top: 245, type: "chicken" }
+  // { left: 200, top: 45, type: "chicken" },
+  // { left: 320, top: 45, type: "chicken" },
+  // { left: 440, top: 45, type: "chicken" },
+  // { left: 560, top: 45, type: "chicken" },
+  // { left: 680, top: 45, type: "chicken" },
+  // { left: 800, top: 45, type: "chicken" },
+  // { left: 920, top: 45, type: "chicken" },
+  // { left: 1040, top: 45, type: "chicken" },
+  // { left: 200, top: 145, type: "chicken" },
+  // { left: 320, top: 145, type: "chicken" },
+  // { left: 440, top: 145, type: "chicken" },
+  // { left: 560, top: 145, type: "chicken" },
+  // { left: 680, top: 145, type: "chicken" },
+  // { left: 800, top: 145, type: "chicken" },
+  // { left: 920, top: 145, type: "chicken" },
+  // { left: 1040, top: 145, type: "chicken" },
+  // { left: 200, top: 245, type: "chicken" },
+  // { left: 320, top: 245, type: "chicken" },
+  // { left: 440, top: 245, type: "chicken" },
+  // { left: 560, top: 245, type: "chicken" },
+  // { left: 680, top: 245, type: "chicken" },
+  // { left: 800, top: 245, type: "chicken" },
+  // { left: 920, top: 245, type: "chicken" },
+  // { left: 1040, top: 245, type: "chicken" }
 ];
 
 var keys = {
@@ -563,7 +563,6 @@ function finalizeGame() {
     width: "100%",
     height: "100%"
   });
-  // $(".winnerMsg").css("display", "block");
   setTimeout(() => {
     // $("#fireworks").fadeOut();
     // showMessage("Hall of fame", "// to be added", 3500);

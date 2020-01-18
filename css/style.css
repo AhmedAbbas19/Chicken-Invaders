@@ -351,15 +351,15 @@ input[name="gender"]:checked ~ .checkmark {
 
 .btn-reset {
   position: absolute;
-  top: 30%;
-  left: 50%;
+  top: 90%;
+  left: 28%;
   transform: translate(-50%, -50%);
 }
 
 .btn-back {
   position: absolute;
   top: 90%;
-  left: 50%;
+  left: 75%;
   transform: translate(-50%, -50%);
 }
 
@@ -377,11 +377,14 @@ input[name="gender"]:checked ~ .checkmark {
 
 .fame-table {
   position: absolute;
-  top: 37%;
+  top: 28%;
   left: 50%;
   width: 60%;
   transform: translate(-50%);
-  background-color: transparent;
+  background-color: #00002f;
+  border: 3px solid #003c64;
+  box-shadow: 0px 0px 6px 4px #003353;
+  border-radius: 15px;
 }
 
 .fame-table th {
@@ -392,12 +395,15 @@ input[name="gender"]:checked ~ .checkmark {
 
 .fame-table td {
   font-size: 18px;
+  padding: 10px;
 }
 
-th,
-td {
+th {
   padding: 15px;
-  text-align: center;
+  border-bottom: 1px solid #003c64;
+}
+tr:not(:last-child) td {
+  border-bottom: 1px solid #003c64;
 }
 
 tr:hover {
