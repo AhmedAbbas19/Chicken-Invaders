@@ -11,7 +11,7 @@ body {
   overflow: hidden;
 }
 * {
-  cursor: url("../images/fork.png"), pointer;
+  /* cursor: url("../images/fork.png"), pointer; */
   font-family: "Mouse Memoirs", sans-serif;
   margin: 0;
   padding: 0;
@@ -138,8 +138,7 @@ body {
 #explosion,
 #gifts,
 #score,
-#eggs,
-#messages {
+#eggs {
   position: fixed;
   height: 100%;
   width: 100%;
@@ -148,20 +147,28 @@ body {
   width: 19px;
   position: fixed;
 }
+.knife {
+  width: 20px;
+  position: fixed;
+}
 .chicken,
 .explosion {
   width: 100px;
   position: fixed;
 }
-.grilled,
-.wing,
+.monster {
+  width: 335px;
+  position: fixed;
+}
+.food-2,
+.food-1,
 .combo {
   position: fixed;
 }
-.grilled {
-  width: 70px;
+.food-2 {
+  width: 65px;
 }
-.wing {
+.food-1 {
   width: 40px;
 }
 .combo {
@@ -243,12 +250,38 @@ input[name="gender"]:checked ~ .checkmark {
   border-radius: 50%;
   border: 2px solid #cccccc;
 }
-.message {
-  cursor: none;
+#messages {
   position: fixed;
-  left: 43%;
-  top: 25%;
+  left: 50%;
+  top: 37%;
+  width: 500px;
+  height: 250px;
+  margin-left: -250px;
+  margin-top: -125px;
+  text-align: center;
+  cursor: none;
   color: #fff;
-  font-size: 96px;
   letter-spacing: 1px;
+  display: none;
+}
+.message {
+  font-size: 96px;
+}
+.sub-message {
+  font-size: 32px;
+}
+.progress {
+  background-color: rgba(40, 89, 125, 0.5);
+  width: 350px;
+  height: 10px;
+  position: fixed;
+  left: 50%;
+  margin-left: -175px;
+  top: 3%;
+  display: none;
+}
+.progress-bar {
+  width: 0;
+  background-color: #ff1a1a;
+  height: 100%;
 }

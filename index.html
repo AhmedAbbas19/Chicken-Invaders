@@ -36,19 +36,19 @@
         <source src="sounds/salut.mp3" type="audio/mpeg" />
       </audio>
     </div>
-    
     <div class="game-screen">
+      <div class="progress">
+        <div class="progress-bar"></div>
+      </div>
       <div id="explosions"></div>
       <div id="bullets"></div>
       <div id="gifts">
-        <img src="images/food-3.svg" alt="" class="grilled" />
-        <img src="images/food-2.svg" alt="" class="wing" />
+        <!-- <img src="images/food-3.svg" alt="" class="grilled" />
+          <img src="images/food-2.svg" alt="" class="wing" />
         <img src="images/food-4.svg" alt="" class="wing" />
-        <img src="images/food-1.svg" alt="" class="combo" />
+        <img src="images/food-1.svg" alt="" class="combo" /> -->
       </div>
-      <div id="eggs">
-        <img src="images/egg-w.svg" class="egg" alt="" />
-      </div>
+      <div id="eggs"></div>
       <div id="chickens"></div>
       <div class="fighter">
         <img src="images/fuel-1.svg" alt="" class="fuel" id="fuelL" />
@@ -65,12 +65,11 @@
           <div class="points">0</div>
         </div>
       </div>
-      <!--<div id="messages">
+      <div id="messages">
         <p class="message">Get Ready</p>
-        <span class=""></span>
-      </div>-->
+        <span class="sub-message">Wave 1</span>
+      </div>
     </div>
-
     <div class="start-screen">
       <div class="start-screen__content">
         <img src="images/logo.png" alt="" class="logo" />
@@ -102,6 +101,7 @@
         </ul>
       </div>
     </div>
+
     <script src="js/jquery.min.js"></script>
     <script src="js/controller.js"></script>
   </body>

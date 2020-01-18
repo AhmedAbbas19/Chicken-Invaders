@@ -12,7 +12,9 @@ var points = {
   wing: 200,
   grilled: 500,
   combo: 1000,
-  kill: 2000,
+  killChicken: 2000,
+  hitMonster: 300,
+  killMonster: 5000,
   egg: -5000
 };
 
@@ -28,42 +30,38 @@ var bullets = [],
   chielded = false,
   gameState = false,
   lives = 3,
+  monsterLives = 30,
+  monsterHit = 0,
+  level = 1,
   playerName = "Empty",
-  playerGender = "male";
+  playerGender = "male",
+  finalPhase = false;
 
 var enemies = [
-  { left: 200, top: 45 },
-  { left: 320, top: 45 },
-  { left: 440, top: 45 },
-  { left: 560, top: 45 },
-  { left: 680, top: 45 },
-  { left: 800, top: 45 },
-  { left: 920, top: 45 },
-  { left: 1040, top: 45 },
-  { left: 200, top: 145 },
-  { left: 320, top: 145 },
-  { left: 440, top: 145 },
-  { left: 560, top: 145 },
-  { left: 680, top: 145 },
-  { left: 800, top: 145 },
-  { left: 920, top: 145 },
-  { left: 1040, top: 145 },
-  { left: 200, top: 245 },
-  { left: 320, top: 245 },
-  { left: 440, top: 245 },
-  { left: 560, top: 245 },
-  { left: 680, top: 245 },
-  { left: 800, top: 245 },
-  { left: 920, top: 245 },
-  { left: 1040, top: 245 }
-  // { left: 200, top: 345 },
-  // { left: 320, top: 345 },
-  // { left: 440, top: 345 },
-  // { left: 560, top: 345 },
-  // { left: 680, top: 345 },
-  // { left: 800, top: 345 },
-  // { left: 920, top: 345 },
-  // { left: 1040, top: 345 }
+  { left: 200, top: 45, type: "chicken" },
+  { left: 320, top: 45, type: "chicken" },
+  { left: 440, top: 45, type: "chicken" },
+  { left: 560, top: 45, type: "chicken" },
+  { left: 680, top: 45, type: "chicken" },
+  { left: 800, top: 45, type: "chicken" },
+  { left: 920, top: 45, type: "chicken" },
+  { left: 1040, top: 45, type: "chicken" },
+  { left: 200, top: 145, type: "chicken" },
+  { left: 320, top: 145, type: "chicken" },
+  { left: 440, top: 145, type: "chicken" },
+  { left: 560, top: 145, type: "chicken" },
+  { left: 680, top: 145, type: "chicken" },
+  { left: 800, top: 145, type: "chicken" },
+  { left: 920, top: 145, type: "chicken" },
+  { left: 1040, top: 145, type: "chicken" },
+  { left: 200, top: 245, type: "chicken" },
+  { left: 320, top: 245, type: "chicken" },
+  { left: 440, top: 245, type: "chicken" },
+  { left: 560, top: 245, type: "chicken" },
+  { left: 680, top: 245, type: "chicken" },
+  { left: 800, top: 245, type: "chicken" },
+  { left: 920, top: 245, type: "chicken" },
+  { left: 1040, top: 245, type: "chicken" }
 ];
 
 var keys = {
@@ -84,9 +82,12 @@ $(document).keydown(function(e) {
       // Space
       if (keys.space == true) {
         var x = $(".fighter").offset();
-        bullets.push({ top: x.top + 17, left: x.left + 35 });
-        // bullets.push({ top: x.top + 17, left: x.left + 15 });
-        // bullets.push({ top: x.top + 17, left: x.left + 55 });
+        if (level == 1) {
+          bullets.push({ top: x.top + 17, left: x.left + 35 });
+        } else {
+          bullets.push({ top: x.top + 17, left: x.left + 15 });
+          bullets.push({ top: x.top + 17, left: x.left + 55 });
+        }
         audioFire.load();
         audioFire.play();
         keys.space = false;
@@ -137,11 +138,14 @@ $(document).keyup(function(e) {
 function makeEgg() {
   if (enemies.length > 0) {
     var idx = Math.floor(Math.random() * enemies.length);
-    var spd = Math.floor(Math.random() * (15 - 4)) + 4;
+    var throwPosTop = enemies[idx].type == "chicken" ? 45 : 170;
+    var throwPosLeft = enemies[idx].type == "chicken" ? 40 : 170;
+    var maxSpeed = level == 1 ? 15 : 10;
+    var speed = Math.floor(Math.random() * (maxSpeed - 4)) + 4;
     eggs.push({
-      left: enemies[idx].left + 40,
-      top: enemies[idx].top + 40,
-      speed: spd
+      left: enemies[idx].left + throwPosLeft,
+      top: enemies[idx].top + throwPosTop,
+      speed: speed
     });
     audioChickenEgg.volume = 0.5;
     audioChickenEgg.load();
@@ -178,24 +182,30 @@ function moveEggs() {
   }
 }
 
+function drawLives() {
+  document.querySelector(".hearts").innerHTML = "";
+  for (let i = 0; i < lives; i++) {
+    document.querySelector(".hearts").innerHTML +=
+      "<i class='fa fa-heart'></i>";
+  }
+}
+
 function rocketDeath() {
   chielded = true;
+  //gameState = false;
   lives -= 1;
   explodeObject({
     left: $(".fighter").offset().left,
-    top: $(".fighter").offset().top
+    top: $(".fighter").offset().top,
+    type: "fighter"
   });
   $(".fighter").css({ display: "none" });
   if (lives == 0) {
-    alert("Game Over");
-    saveResults();
+    showMessage("Game Over", "Good luck next time", 2500);
   } else {
-    document.querySelector(".hearts").innerHTML = "";
-    for (let i = 0; i < lives; i++) {
-      document.querySelector(".hearts").innerHTML +=
-        "<i class='fa fa-heart'></i>";
-    }
+    drawLives();
     setTimeout(function() {
+      //gameState = true;
       $(".fighter")
         .css({ display: "block" })
         .addClass("chield");
@@ -235,13 +245,20 @@ function moveBullets() {
 }
 
 function drawEnemies() {
-  var chickenColor = playerGender == "male" ? 4 : 6;
   document.getElementById("chickens").innerHTML = "";
+  var chickenColor;
+  if (level == 1) {
+    chickenColor = playerGender == "male" ? 4 : 6;
+  } else {
+    chickenColor = playerGender == "male" ? 2 : 3;
+  }
   for (var i = 0; i < enemies.length; i++) {
     document.getElementById("chickens").innerHTML +=
       '<img src="images/c' +
       chickenColor +
-      '.png" class="chicken" alt=""  style="left:' +
+      '.png" class="' +
+      enemies[i].type +
+      ' enemy" alt=""  style="left:' +
       enemies[i].left +
       "px; top:" +
       enemies[i].top +
@@ -249,22 +266,22 @@ function drawEnemies() {
   }
 }
 
-var factor = 0;
-var flag = true;
-function moveEnemies() {
-  if (flag == true) {
-    factor++;
-    if (factor >= 100) {
-      flag = false;
+var enemyMoveFactor = 0;
+var enemyMoveFlag = true;
+function moveEnemies(left, right) {
+  if (enemyMoveFlag == true) {
+    enemyMoveFactor++;
+    if (enemyMoveFactor >= right) {
+      enemyMoveFlag = false;
     }
   } else {
-    factor--;
-    if (factor <= -90) {
-      flag = true;
+    enemyMoveFactor--;
+    if (enemyMoveFactor <= left) {
+      enemyMoveFlag = true;
     }
   }
   for (var i = 0; i < enemies.length; i++) {
-    if (flag) {
+    if (enemyMoveFlag) {
       enemies[i].left = enemies[i].left + 2;
     } else {
       enemies[i].left = enemies[i].left - 2;
@@ -276,8 +293,8 @@ function checkCollision(bullet) {
   var bulletLeft = bullet.left;
   var bulletTop = bullet.top;
   var bulleRight = bulletLeft + $("#fire").width();
-  var enemyWidth = $(".chicken").width();
-  var enemyHeight = $(".chicken").height();
+  var enemyWidth = $(".enemy").width();
+  var enemyHeight = $(".enemy").height();
 
   for (var i = 0; i < enemies.length; i++) {
     if (
@@ -291,19 +308,44 @@ function checkCollision(bullet) {
           bulleRight <= enemies[i].left + enemyWidth)
       ) {
         bullets.splice(bullets.indexOf(bullet), 1);
-        explodeObject({ left: enemies[i].left, top: enemies[i].top });
         audioChickenDeath.load();
         audioChickenDeath.play();
+        var throwPosTop = enemies[i].type == "chicken" ? 45 : 170;
+        var throwPosLeft = enemies[i].type == "chicken" ? 40 : 170;
         var spd = Math.floor(Math.random() * (10 - 4)) + 4;
         gifts.push({
-          left: enemies[i].left + 40,
-          top: enemies[i].top + 20,
+          left: enemies[i].left + throwPosLeft,
+          top: enemies[i].top + throwPosTop,
           speed: spd
         });
-        enemies.splice(i, 1);
-        score += points.kill;
+
+        if (enemies[i].type == "chicken") {
+          score += points.killChicken;
+          explodeObject({
+            left: enemies[i].left,
+            top: enemies[i].top,
+            type: enemies[i].type
+          });
+          enemies.splice(i, 1);
+          if (enemies.length > 16) {
+            drawEnemies();
+          }
+        } else {
+          score += points.hitMonster;
+          monsterHit++;
+          $(".progress-bar").width((monsterHit / monsterLives) * 100 + "%");
+          if (monsterHit == monsterLives) {
+            explodeObject({
+              left: enemies[i].left,
+              top: enemies[i].top,
+              type: enemies[i].type
+            });
+            enemies.splice(i, 1);
+            score += points.killMonster;
+          }
+        }
+
         $(".points").text(score);
-        drawEnemies();
       }
     }
   }
@@ -327,6 +369,7 @@ function checkHit(object, objectWidth, objectHeight, objectsArr, state) {
     ) {
       objectsArr.splice(objectsArr.indexOf(object), 1);
       score += state.points;
+      score = score > 0 ? score : 0;
       $(".points").text(score);
       state.audio.load();
       state.audio.play();
@@ -337,12 +380,22 @@ function checkHit(object, objectWidth, objectHeight, objectsArr, state) {
   }
 }
 
-function explodeObject(pos) {
+function explodeObject(object) {
+  var width;
+  if (object.type == "chicken") {
+    width = $(".chicken").width();
+  } else if (object.type == "fighter") {
+    width = $(".fighter").width();
+  } else {
+    width = $(".monster").width();
+  }
   document.getElementById("explosions").innerHTML +=
     '<img src="images/exp.gif" class="explosion" alt=""  style="left:' +
-    pos.left +
+    object.left +
     "px; top:" +
-    pos.top +
+    object.top +
+    "px; width:" +
+    width +
     'px"/>';
   setTimeout(function() {
     document.getElementById("explosions").innerHTML = "";
@@ -353,15 +406,25 @@ function throwGift() {
   document.getElementById("gifts").innerHTML = "";
   for (var i = 0; i < gifts.length; i++) {
     document.getElementById("gifts").innerHTML +=
-      "<img src='images/food-4.svg' alt='' class='wing' style='left:" +
+      "<img src='images/food-" +
+      level +
+      ".svg' alt='' class='food-" +
+      level +
+      "' style='left:" +
       gifts[i].left +
       "px; top:" +
       gifts[i].top +
       "px'/>";
-    checkHit(gifts[i], $(".wing").width(), $(".wing").height(), gifts, {
-      points: points.wing,
-      audio: audioBite
-    });
+    checkHit(
+      gifts[i],
+      $(".food-" + level).width(),
+      $(".food-" + level).height(),
+      gifts,
+      {
+        points: points.wing,
+        audio: audioBite
+      }
+    );
   }
 }
 
@@ -374,9 +437,18 @@ function moveGifts() {
   }
 }
 
+function showMessage(msg, sub_msg, msg_time = 2500) {
+  $("#messages").fadeIn();
+  $(".message").text(msg);
+  $(".sub-message").text(sub_msg);
+  setTimeout(() => {
+    $("#messages").fadeOut();
+  }, msg_time);
+}
+
 // //////////////////////////////////////////////
 $("#btn-uname").click(function() {
-  playerName = $('input[name="username"]').val();
+  playerName = $('input[name="username"]').val() || playerName;
   playerGender = $("input[name='gender']:checked").val() || playerGender;
 
   $(".inputField").hide();
@@ -388,8 +460,9 @@ $("#btn-start").click(function() {
   soundtrack.pause();
   audioSalut.play();
   $(".start-screen__content").fadeOut();
+  showMessage("Get Ready", "Wave 1");
   $(".fighter").fadeIn();
-  $("*").css({ cursor: "none" });
+  // $("*").css({ cursor: "none" });
   var positionBG = 0;
   var moveBg = setInterval(function() {
     $("body").css("background-position", "0 " + positionBG + "px");
@@ -407,8 +480,32 @@ function Game() {
   throwGift();
   moveGifts();
   if (enemies.length <= 16) {
-    moveEnemies();
+    if (level == 1) {
+      moveEnemies(-90, 100);
+    } else {
+      moveEnemies(-250, 250);
+    }
     drawEnemies();
+  }
+  if (
+    enemies.length == 0 &&
+    gifts.length == 0 &&
+    eggs.length == 0 &&
+    bullets.length == 0 &&
+    level == 1
+  ) {
+    levelTwo();
+  }
+  if (
+    enemies.length == 0 &&
+    gifts.length == 0 &&
+    eggs.length == 0 &&
+    bullets.length == 0 &&
+    level == 2 &&
+    finalPhase == true
+  ) {
+    finalizeGame();
+    return;
   }
   drawEggs();
   moveEggs();
@@ -424,4 +521,36 @@ function initGame() {
   }, 1000);
   drawEnemies();
   Game();
+}
+function createMonster() {
+  enemies.push({ left: 506, top: 45, type: "monster" });
+  enemyMoveFactor = 0;
+  enemyMoveFlag = true;
+}
+
+function levelTwo() {
+  level = 2;
+  showMessage("Excellent Work", "", 1500);
+  setTimeout(() => {
+    showMessage("Watch out", "Wave 2", 2500);
+    $("body").css("background-image", "url(images/bg-3.jpg)");
+    lives = 3;
+    drawLives();
+    setTimeout(() => {
+      $(".progress").fadeIn();
+      createMonster();
+      finalPhase = true;
+    }, 2600);
+  }, 1600);
+}
+
+function finalizeGame() {
+  finalPhase = false;
+  level = -1;
+  showMessage("Brilliant", "You saved the world", 1500);
+  $(".progress").fadeOut();
+  $("#result").fadeOut();
+  setTimeout(() => {
+    showMessage("Hall of fame", "// to be added", 3500);
+  }, 1600);
 }
