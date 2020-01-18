@@ -201,7 +201,7 @@ function rocketDeath() {
   });
   $(".fighter").css({ display: "none" });
   if (lives == 0) {
-    showMessage("Game Over", "Good luck next time", 2500);
+    showMessage("Game Over", "Good luck next time", 3500);
   } else {
     drawLives();
     setTimeout(function() {
@@ -549,16 +549,17 @@ function finalizeGame() {
   level = -1;
   $(".progress").fadeOut();
   $("#result").fadeOut();
+  showMessage("Brilliant", "You saved the world", 3000);
   // fireworks
-  $(".demo").fireworks({
-    sound: true,
-    opacity: 0.8,
+  $("#fireworks").fireworks({
+    sound: false,
+    opacity: 0.2,
     width: "100%",
     height: "100%"
   });
-  // showMessage("Brilliant", "You saved the world", 1500);
-  $(".winnerMsg").css("display", "block");
+  // $(".winnerMsg").css("display", "block");
   setTimeout(() => {
+    // $("#fireworks").fadeOut();
     showMessage("Hall of fame", "// to be added", 3500);
-  }, 1600);
+  }, 3100);
 }
