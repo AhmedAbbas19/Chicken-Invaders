@@ -1,3 +1,12 @@
+var audioFire = document.getElementById("fire-sound");
+var audioBite = document.getElementById("bite-sound");
+var audioChickenDeath = document.getElementById("chicken-death-sound");
+var audioChickenEgg = document.getElementById("chicken-egg-sound");
+var audioExplosion = document.getElementById("explosion-sound");
+var audioEggBreak = document.getElementById("break-egg-sound");
+var soundtrack = document.getElementById("soundtrack");
+var audioSalut = document.getElementById("salut-sound");
+
 var score = 0;
 var points = {
   wing: 200,
@@ -327,6 +336,7 @@ function checkHit(object, objectWidth, objectHeight, objectsArr, state) {
     }
   }
 }
+
 function explodeObject(pos) {
   document.getElementById("explosions").innerHTML +=
     '<img src="images/exp.gif" class="explosion" alt=""  style="left:' +
