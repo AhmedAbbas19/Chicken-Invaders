@@ -556,7 +556,8 @@ function finalizeGame() {
     width: "100%",
     height: "100%"
   });
-  showMessage("Brilliant", "You saved the world", 1500);
+  // showMessage("Brilliant", "You saved the world", 1500);
+  $(".winnerMsg").css("display", "block");
   setTimeout(() => {
     showMessage("Hall of fame", "// to be added", 3500);
   }, 1600);
