@@ -35,7 +35,8 @@ var bullets = [],
   level = 1,
   playerName = "Empty",
   playerGender = "male",
-  finalPhase = false;
+  finalPhase = false,
+  moveBg;
 
 var enemies = [
   { left: 200, top: 45, type: "chicken" },
@@ -201,7 +202,9 @@ function rocketDeath() {
   });
   $(".fighter").css({ display: "none" });
   if (lives == 0) {
+    saveResults();
     showMessage("Game Over", "Good luck next time", 2500);
+    ShowFame();
   } else {
     drawLives();
     setTimeout(function() {
@@ -447,7 +450,8 @@ function showMessage(msg, sub_msg, msg_time = 2500) {
 }
 
 // //////////////////////////////////////////////
-$("#btn-uname").click(function() {
+$(".entry-form").on("submit", function(e) {
+  e.preventDefault();
   playerName = $('input[name="username"]').val() || playerName;
   playerGender = $("input[name='gender']:checked").val() || playerGender;
 
@@ -456,10 +460,11 @@ $("#btn-uname").click(function() {
 });
 
 $("#btn-start").click(function() {
+  $(".game-screen").show(800);
   gameState = true;
   soundtrack.pause();
   audioSalut.play();
-  $(".start-screen__content").fadeOut();
+  $(".game-menu, .logo").fadeOut();
   showMessage("Get Ready", "Wave 1");
   $(".fighter").fadeIn();
   // $("*").css({ cursor: "none" });
@@ -545,6 +550,7 @@ function levelTwo() {
 }
 
 function finalizeGame() {
+  saveResults();
   finalPhase = false;
   level = -1;
   $(".progress").fadeOut();
@@ -559,6 +565,110 @@ function finalizeGame() {
   // showMessage("Brilliant", "You saved the world", 1500);
   $(".winnerMsg").css("display", "block");
   setTimeout(() => {
-    showMessage("Hall of fame", "// to be added", 3500);
+    // showMessage("Hall of fame", "// to be added", 3500);
+    ShowFame();
   }, 1600);
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+$("#btn-credits").on("click", function() {
+  let startScreen = $(".start-screen");
+  let credits = $(".credits");
+  let back = $(".arrow-back");
+  setInterval(function() {
+    back.fadeIn(1000).fadeOut(1000);
+  }, 2000);
+  startScreen.find(".game-menu, .logo").hide(1000);
+  credits.fadeIn(3000);
+  let positionBG = 0;
+  moveBg = setInterval(function() {
+    $("body").css("background-position", "0 " + positionBG + "px");
+    positionBG += 1;
+  }, 16.6);
+});
+
+function backToStart(e) {
+  if (gameState == false) {
+    e.preventDefault();
+  }
+  clearInterval(moveBg);
+  let startScreen = $(".start-screen");
+  let credits = $(".credits");
+  let fame = $(".fame");
+  credits.hide(400);
+  fame.hide(400);
+  startScreen.find(".game-menu, .logo").show(800);
+}
+
+function saveResults() {
+  localStorage.setItem(`user-${playerName}`, score);
+}
+
+function getResults() {
+  let players = Object.entries(localStorage);
+  let sortedPlayers = players.sort((a, b) => {
+    return b[1] - a[1];
+  });
+  let playersArr = [];
+  let scoreArr = [];
+  let modPlayersArr = [];
+  for (const player in sortedPlayers) {
+    [playersArr[player], scoreArr[player]] = sortedPlayers[player];
+  }
+  for (const player in playersArr) {
+    if (!playersArr[player].startsWith("user")) {
+      playersArr.splice(player, 1);
+      scoreArr.splice(player, 1);
+    }
+    modPlayersArr.push(playersArr[player].split("-")[1]);
+  }
+  return { modPlayersArr, scoreArr };
+}
+
+function ShowFame() {
+  let startScreen = $(".start-screen");
+  let gameScreen = $(".game-screen");
+  let fame = $(".fame");
+  let back = $(".arrow-back");
+  let table = $(".fame-table");
+  if (gameState == true) {
+    clearInterval(moveBg);
+  }
+
+  setInterval(function() {
+    back.fadeIn(1000).fadeOut(1000);
+  }, 2000);
+  startScreen.find(".game-menu, .logo").hide(800);
+  gameScreen.hide(800);
+  fame.fadeIn(1000);
+  let { modPlayersArr: playersArr, scoreArr } = getResults();
+
+  let arr = [];
+  for (let i = 0; i < 10; i++) {
+    if (playersArr[i] != undefined) {
+      arr.push(playersArr[i]);
+      arr.push(scoreArr[i]);
+    } else {
+      arr.push("----");
+    }
+  }
+  $.each(table.find("tbody tr td:not(:first-child)"), function(index, el) {
+    $(el).text(arr[index]);
+  });
+  let activeEl = playersArr.indexOf(playerName);
+  $($(".fame-table").find("tbody tr")[activeEl]).addClass("active");
+  if (gameState != true) {
+    let positionBG = 0;
+    moveBg = setInterval(function() {
+      $("body").css("background-position", "0 " + positionBG + "px");
+      positionBG += 1;
+    }, 16.6);
+  }
+}
+$("#btn-fame").on("click", ShowFame);
+
+function resetScore() {
+  let table = $(".fame-table");
+  table.find("tbody tr td:not(:first-child)").text("----");
+  localStorage.clear();
 }

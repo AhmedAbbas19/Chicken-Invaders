@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="css/all.min.css" />
     <link rel="stylesheet" href="css/style.css" />
     <link rel="shortcut icon" href="images/c4.png" type="image/x-icon" />
     <title>Chicken Invaders</title>
@@ -74,26 +74,29 @@
       <div class="start-screen__content">
         <img src="images/logo.png" alt="" class="logo" />
         <p class="" id="press-key">Press any key to continue</p>
-        <div class="inputField">
-          <input
-            type="text"
-            name="username"
-            id="uname"
-            placeholder="Enter your name"
-            autofocus
-          />
-          <button id="btn-uname">Enter</button><br />
-          <div class="male-type">
-            <input type="radio" name="gender" value="male" id="male" />
-            <span class="checkmark"></span>
-            <label for="male">Male</label><br />
+        <form action="#" class="entry-form">
+          <div class="inputField">
+            <input
+              type="text"
+              name="username"
+              id="uname"
+              placeholder="Enter your name"
+              autofocus
+              required
+            />
+            <button id="btn-uname" type="submit">Enter</button><br />
+            <div class="male-type">
+              <input type="radio" name="gender" value="male" id="male" />
+              <span class="checkmark"></span>
+              <label for="male">Male</label><br />
+            </div>
+            <div class="female-type">
+              <input type="radio" name="gender" value="female" id="female" />
+              <span class="checkmark"></span>
+              <label for="female">Female</label>
+            </div>
           </div>
-          <div class="female-type">
-            <input type="radio" name="gender" value="female" id="female" />
-            <span class="checkmark"></span>
-            <label for="female">Female</label>
-          </div>
-        </div>
+        </form>
         <ul class="game-menu">
           <li class="menu-item" id="btn-start">Save the World</li>
           <li class="menu-item" id="btn-fame">Hall of Fame</li>
@@ -101,12 +104,100 @@
         </ul>
       </div>
     </div>
-    <h2 class="winnerMsg">
-      Brilliant, You saved the world!
-    </h2>
-    <div class="demo"></div>
+
+    <!-----------------------------------Credits----------------------------------->
+    <div class="credits">
+      <a class="arrow-back" href="index.html" onclick="backToStart(event)"
+        ><i class="fas fa-hand-point-left" style="color: #fff;"></i
+      ></a>
+      <h1 class="credits__title">Credits</h1>
+      <div class="flex-row">
+        <div class="developer-box">
+          <img src="images/Abdallah.jpg" style="width: 100%;" />
+          <h1 class="developer-box__title">Abdallah Ragab</h1>
+          <p class="developer-content">Front End Developer</p>
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-twitter" style="color: #15AABF;"></i></a>
+          <a href="#"><i class="fas fa-rss" style="color: #FD7E14;"></i></a>
+        </div>
+        <div class="developer-box">
+          <img src="images/AhmedAbbas.jpg" style="width: 100%;" />
+          <h1 class="developer-box__title">Ahmed Abbas</h1>
+          <p class="developer-content">Front End Developer</p>
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-twitter" style="color: #15AABF;"></i></a>
+          <a href="#"><i class="fas fa-rss" style="color: #FD7E14;"></i></a>
+        </div>
+        <div class="developer-box">
+          <img src="images/ahmedMostafa.JPG" style="width: 100%;" />
+          <h1 class="developer-box__title">Ahmed Mostafa</h1>
+          <p class="developer-content">Front End Developer</p>
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-twitter" style="color: #15AABF;"></i></a>
+          <a href="#"><i class="fas fa-rss" style="color: #FD7E14;"></i></a>
+        </div>
+        <div class="developer-box">
+          <img src="images/amir.JPG" style="width: 100%;" />
+          <h1 class="developer-box__title">Amir Mohammed</h1>
+          <p class="developer-content">Front End Developer</p>
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-twitter" style="color: #15AABF;"></i></a>
+          <a href="#"><i class="fas fa-rss" style="color: #FD7E14;"></i></a>
+        </div>
+      </div>
+      <p class="credits__copy-right">
+        All Rights Reserved&copy; Web&amp;UI development&mdash;Intake 40
+      </p>
+    </div>
+
+    <!-----------------------------------Hall Of Fame----------------------------------->
+    <div class="fame">
+      <a class="arrow-back" href="index.html" onclick="backToStart(event)"
+        ><i class="fas fa-hand-point-left" style="color: #fff;"></i
+      ></a>
+      <h1 class="fame__title">Hall Of Fame</h1>
+      <button class="btn-reset" onclick="resetScore()">Reset Scores</button>
+      <table class="fame-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Player's Name</th>
+            <th>Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td class="table-name">----</td>
+            <td class="table-score">----</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td class="table-name">----</td>
+            <td class="table-score">----</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td class="table-name">----</td>
+            <td class="table-score">----</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td class="table-name">----</td>
+            <td class="table-score">----</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td class="table-name">----</td>
+            <td class="table-score">----</td>
+          </tr>
+        </tbody>
+      </table>
+      <a class="btn-back" href="index.html" onclick="backToStart(event)">
+        OK
+      </a>
+    </div>
     <script src="js/jquery.min.js"></script>
-    <script src="js/jquery.fireworks.js"></script>
     <script src="js/controller.js"></script>
   </body>
 </html>
