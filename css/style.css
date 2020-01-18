@@ -285,3 +285,152 @@ input[name="gender"]:checked ~ .checkmark {
   background-color: #ff1a1a;
   height: 100%;
 }
+
+/********************************Fame Of Hall & Credits Style********************************/
+.fame,
+.credits {
+  display: none;
+  text-align: center;
+  color: #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+.fame__title,
+.credits__title {
+  font-size: 120px;
+  font-weight: 400;
+  position: absolute;
+  top: 14%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.credits__sub {
+  font-size: 60px;
+  color: dodgerblue;
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.credits__copy-right {
+  position: absolute;
+  top: 94%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 28px;
+  letter-spacing: 1px;
+}
+
+.btn-reset,
+.btn-back {
+  text-decoration: none;
+  background-color: #00002f;
+  border: 3px solid #003c64;
+  box-shadow: 0px 0px 6px 4px #003353;
+  color: #fff;
+  font-size: 24px;
+  border-radius: 40px;
+  padding: 12px 60px;
+  outline: none;
+  letter-spacing: 0.5px;
+  margin: 10px 0 20px;
+  transition: all 0.5s;
+}
+
+.btn-reset {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.btn-back {
+  position: absolute;
+  top: 90%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.arrow-back {
+  position: absolute;
+  top: 12%;
+  left: 15%;
+  font-size: 42px;
+}
+
+.btn-reset:hover,
+.btn-back:hover {
+  box-shadow: 0px 0px 6px 4px #40a9c9;
+}
+
+.fame-table {
+  position: absolute;
+  top: 37%;
+  left: 50%;
+  width: 60%;
+  transform: translate(-50%);
+  background-color: transparent;
+}
+
+.fame-table th {
+  color: white;
+  font-size: 24px;
+  font-weight: 300;
+}
+
+.fame-table td {
+  font-size: 18px;
+}
+
+th,
+td {
+  padding: 15px;
+  text-align: center;
+}
+
+tr:hover {
+  background-color: rgba(64, 169, 201, 0.5);
+}
+
+tbody tr.active {
+  color: dodgerblue;
+}
+
+.flex-row {
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+.developer-box {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  width: 21%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  margin: 0 10px;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding-bottom: 10px;
+  transition: transform 0.3s;
+}
+.developer-box:hover {
+  transform: translateY(-15px) scale(1.03);
+}
+
+.developer-box__title {
+  font-weight: 100;
+}
+.developer-box__content {
+  color: grey;
+  font-size: 18px;
+}
