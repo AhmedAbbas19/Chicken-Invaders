@@ -327,3 +327,91 @@ function checkHit(object, objectWidth, objectHeight, objectsArr, state) {
     }
   }
 }
+function explodeObject(pos) {
+  document.getElementById("explosions").innerHTML +=
+    '<img src="images/exp.gif" class="explosion" alt=""  style="left:' +
+    pos.left +
+    "px; top:" +
+    pos.top +
+    'px"/>';
+  setTimeout(function() {
+    document.getElementById("explosions").innerHTML = "";
+  }, 1000);
+}
+
+function throwGift() {
+  document.getElementById("gifts").innerHTML = "";
+  for (var i = 0; i < gifts.length; i++) {
+    document.getElementById("gifts").innerHTML +=
+      "<img src='images/food-4.svg' alt='' class='wing' style='left:" +
+      gifts[i].left +
+      "px; top:" +
+      gifts[i].top +
+      "px'/>";
+    checkHit(gifts[i], $(".wing").width(), $(".wing").height(), gifts, {
+      points: points.wing,
+      audio: audioBite
+    });
+  }
+}
+
+function moveGifts() {
+  for (var i = 0; i < gifts.length; i++) {
+    gifts[i].top = gifts[i].top + gifts[i].speed;
+    if (gifts[i].top > 786) {
+      gifts.splice(i, 1);
+    }
+  }
+}
+
+// //////////////////////////////////////////////
+$("#btn-uname").click(function() {
+  playerName = $('input[name="username"]').val();
+  playerGender = $("input[name='gender']:checked").val() || playerGender;
+
+  $(".inputField").hide();
+  $(".game-menu").fadeIn();
+});
+
+$("#btn-start").click(function() {
+  gameState = true;
+  soundtrack.pause();
+  audioSalut.play();
+  $(".start-screen__content").fadeOut();
+  $(".fighter").fadeIn();
+  $("*").css({ cursor: "none" });
+  var positionBG = 0;
+  var moveBg = setInterval(function() {
+    $("body").css("background-position", "0 " + positionBG + "px");
+    positionBG += 20;
+    if (positionBG == 4000) {
+      clearInterval(moveBg);
+      initGame();
+    }
+  }, 16.6);
+});
+
+function Game() {
+  drawBullets();
+  moveBullets();
+  throwGift();
+  moveGifts();
+  if (enemies.length <= 16) {
+    moveEnemies();
+    drawEnemies();
+  }
+  drawEggs();
+  moveEggs();
+  bgPos += 2;
+  $("body").css("background-position", "0 " + bgPos + "px");
+  setTimeout(Game, 11.36);
+}
+
+function initGame() {
+  $("#result").fadeIn();
+  setInterval(function() {
+    makeEgg();
+  }, 1000);
+  drawEnemies();
+  Game();
+}
