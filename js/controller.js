@@ -29,6 +29,7 @@ var bullets = [],
   rotate,
   chielded = false,
   gameState = false,
+  gameMode = false,
   lives = 3,
   monsterLives = 30,
   monsterHit = 0,
@@ -97,7 +98,8 @@ $(document).keydown(function(e) {
         }, 200);
       }
     }
-  } else {
+  } else if (gameMode == false) {
+    gameMode = true;
     $("#press-key").hide();
     soundtrack.play();
     $(".inputField").fadeIn();
@@ -405,7 +407,7 @@ function explodeObject(object) {
   }, 1000);
 }
 
-function throwGift() {
+function drawGift() {
   document.getElementById("gifts").innerHTML = "";
   for (var i = 0; i < gifts.length; i++) {
     document.getElementById("gifts").innerHTML +=
@@ -461,7 +463,7 @@ $(".entry-form").on("submit", function(e) {
 
 $("#btn-start").click(function() {
   $(".game-screen").show(800);
-  gameState = true;
+  // gameState = true;
   soundtrack.pause();
   audioSalut.play();
   $(".game-menu, .logo").fadeOut();
@@ -482,7 +484,7 @@ $("#btn-start").click(function() {
 function Game() {
   drawBullets();
   moveBullets();
-  throwGift();
+  drawGift();
   moveGifts();
   if (enemies.length <= 16) {
     if (level == 1) {
@@ -520,6 +522,7 @@ function Game() {
 }
 
 function initGame() {
+  gameState = true;
   $("#result").fadeIn();
   setInterval(function() {
     makeEgg();
