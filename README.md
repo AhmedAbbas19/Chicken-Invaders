@@ -1,3 +1,3 @@
-# Dashboard
+# Chicken Invaders
 
 ![Screenshot](screenshot.png)
